@@ -1,6 +1,6 @@
 {
   "$schema": "https://acode.app/schema/plugin/v0.1.0.json",
-  "id": "godot-colors-editor-theme",
+  "id": "acode.plugin.repechul.godot.colors.editor.theme",
   "name": "Godot Colors",
   "main": "main.js",
   "version": "1.0.0",
@@ -26,5 +26,5 @@
     "name": "Repechul",
     "github": "repechul"
   },
-  "repository": "https://github.com/Repechul/acode-plugin-godot-colors-editor-theme"
+  "repository": "https://github.com/Repechul/acode-plugin-acode.plugin.repechul.godot.colors.editor.theme"
 }

@@ -1,7 +1,7 @@
 !function () {
   "use strict";
 
-  var pluginId = "godot-colors-editor-theme";
+  var pluginId = "acode.plugin.repechul.godot.colors.editor.theme";
   var ACE_THEME_NAME = "godot.colors.4.7";
   var ACE_THEME_PATH = "ace/theme/" + ACE_THEME_NAME;
   var CM_THEME_ID = "godot.colors.4.7";
@@ -216,7 +216,7 @@
     GodotColorsPlugin.prototype.isGodotCTheme = function (val) {
       var nrm = String(val || "").trim().toLowerCase();
       return nrm === ACE_THEME_NAME || nrm === ACE_THEME_PATH || nrm === CM_THEME_ID ||
-        nrm === "godot-colors-editor-theme" || nrm === "godot_colors_editor_theme" || nrm === "godot colors editor theme";
+        nrm === "acode.plugin.repechul.godot.colors.editor.theme" || nrm === "godot_colors_editor_theme" || nrm === "godot colors editor theme";
     };
 
     GodotColorsPlugin.prototype.applyEditorTheme = function (val) {

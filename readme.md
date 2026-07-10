@@ -1,4 +1,9 @@
 # Godot Colors (Editor Theme)
+<br>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Repechul/acode-plugin-godot-colors-editor-theme/refs/heads/master/icon.png" width="256" height="256" alt="icon">
+</p>
+<br>
 
 ---
 

@@ -71,6 +71,6 @@ This will be corrected in future versions.
 
 ---
 
-## License
+## License MIT
 
 Copyright (c) 2026 - present Repechul (Bugrhak)

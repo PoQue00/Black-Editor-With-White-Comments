@@ -1,0 +1,30 @@
+{
+  "$schema": "https://acode.app/schema/plugin/v0.1.0.json",
+  "id": "godot-colors-editor-theme",
+  "name": "Godot Colors",
+  "main": "main.js",
+  "version": "1.0.0",
+  "readme": "readme.md",
+  "icon": "icon.png",
+  "files": [],
+  "minVersionCode": 290,
+  "license": "MIT",
+  "keywords": [
+    "theme",
+    "Godot-Colors",
+    "editor-theme",
+    "codemirror",
+    "ace",
+    "godot",
+    "gdscript",
+    "dark",
+    "godot-4.7"
+  ],
+  "price": 0,
+  "permissions": [],
+  "author": {
+    "name": "Repechul",
+    "github": "repechul"
+  },
+  "repository": ""
+}

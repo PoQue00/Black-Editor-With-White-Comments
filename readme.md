@@ -62,14 +62,6 @@ etc.) will show these colors.
 
 ---
 
-## Author's Notes
-
-**v1.0.0**
-
-Currently, some colors do not match or accurately reflect the colors Godot uses for syntax highlighting.
-The differences are minor.
-This will be corrected in future versions.
-
 ## Author
 
 **Repechul** - GitHub: [hhttps://github.com/Repechul](https://github.com/Repechul)

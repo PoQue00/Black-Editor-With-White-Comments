@@ -1,257 +1,518 @@
-!function () {
+(function () {
   "use strict";
 
-  var pluginId = "acode.plugin.repechul.godot.colors.editor.theme";
-  var ACE_THEME_NAME = "godot.colors.4.7";
-  var ACE_THEME_PATH = "ace/theme/" + ACE_THEME_NAME;
-  var CM_THEME_ID = "godot.colors.4.7";
+  var PLUGIN_ID = "acode.plugin.repechul.godot.colors.editor.theme";
+  var THEME_ID = "godot.colors.4.7";
+  var THEME_CAPTION = "Godot Colors";
+  var IS_DARK = true;
 
+    
+  var palette = {
+    // ---- Fondos / estructura ----
+    background: "#171717", // Background Color
+    gutterBg: "#171717", // Compartido con "Background Color" en godot
+    panelBg: "#8b8b8b",
+    printMargin: "#8b8b8b",
+    scrollbarThumb: "#8b8b8b",
 
-  var aceCSS = [
-    ".ace-godot.colors.4.7 { color: #ffffffbf; background-color: #171717 }",
-    ".ace-godot.colors.4.7 .ace_gutter { color: #ffffff80; background-color: #171717 }",
-    ".ace-godot.colors.4.7 .ace_gutter-active-line { font-weight: bold; color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_print-margin { width: 1px; background: #313131 }",
-    /* cursor y seleccion */
-    ".ace-godot.colors.4.7 .ace_cursor { color: #ffffff }",
-    ".ace-godot.colors.4.7 .ace_marker-layer .ace_selection { background: #3de97666; border-radius: 0 }",
-    ".ace-godot.colors.4.7 .ace_multiselect .ace_selection.ace_start { box-shadow: 0 0 3px #000 }",
-    ".ace-godot.colors.4.7 .ace_marker-layer .ace_step { background: #fae345 }",
-    ".ace-godot.colors.4.7 .ace_marker-layer .ace_bracket { margin: -1px 0 0 -1px; border: 1px solid rgba(171, 201, 255, 0.3) }",
-    ".ace-godot.colors.4.7 .ace_marker-layer .ace_active-line { background: #ffffff12 }",
-    ".ace-godot.colors.4.7 .ace_marker-layer .ace_selected-word { background-color: #ffffff12; border: 1px solid rgba(171, 201, 255, 0.3) }",
-    ".ace-godot.colors.4.7 .ace_invisible { color: #3a3a3a }",
-    /* palabras clave */
-    ".ace-godot.colors.4.7 .ace_keyword { color: #ff7085 }",
-    ".ace-godot.colors.4.7 .ace_keyword.ace_operator { color: #ff7085 }",
-    /* constantes */
-    ".ace-godot.colors.4.7 .ace_constant.ace_language { color: #ff7085 }",
-    ".ace-godot.colors.4.7 .ace_constant.ace_numeric { color: #a1ffe0 }",
-    ".ace-godot.colors.4.7 .ace_constant.ace_character { color: #a1ffe0 }",
-    ".ace-godot.colors.4.7 .ace_constant.ace_character.ace_escape { color: #ffbf66 }",
-    ".ace-godot.colors.4.7 .ace_constant.ace_other { color: #a1ffe0 }",
-    /* soporte / builtins */
-    ".ace-godot.colors.4.7 .ace_support.ace_function { color: #57b3ff }",
-    ".ace-godot.colors.4.7 .ace_support.ace_function.ace_dom { color: #57b3ff }",
-    ".ace-godot.colors.4.7 .ace_support.ace_constant { color: #a1ffe0 }",
-    ".ace-godot.colors.4.7 .ace_support.ace_type { color: #8fffdb }",
-    /* clase */
-    ".ace-godot.colors.4.7 .ace_class { color: #c7ffed }",
-    /* almacenamiento */
-    ".ace-godot.colors.4.7 .ace_storage { color: #ff7085 }",
-    ".ace-godot.colors.4.7 .ace_storage.ace_type { color: #ff7085 }",
-    /* variable */
-    ".ace-godot.colors.4.7 .ace_variable { color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_variable.ace_language { color: #ff7085 }",
-    ".ace-godot.colors.4.7 .ace_variable.ace_parameter { color: #ffffffbf }",
-    /* string */
-    ".ace-godot.colors.4.7 .ace_string { color: #ffeda1 }",
-    ".ace-godot.colors.4.7 .ace_string.ace_regexp { color: #ffeda1 }",
-    /* comentario */
-    ".ace-godot.colors.4.7 .ace_comment { color: #ffffff80; font-style: italic }",
-    /* constante generica */
-    ".ace-godot.colors.4.7 .ace_constant { color: #a1ffe0 }",
-    /* identificadores */
-    ".ace-godot.colors.4.7 .ace_identifier { color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_variable.ace_other { color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_entity.ace_other.ace_inherited-class { color: #8fffdb }",
-    ".ace-godot.colors.4.7 .ace_support.ace_other { color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_meta.ace_import .ace_identifier { color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_meta.ace_import .ace_support { color: #ffffffbf }",
-    ".ace-godot.colors.4.7 .ace_meta.ace_import .ace_variable { color: #ffffffbf }",
-    /* HTML / XML */
-    ".ace-godot.colors.4.7 .ace_meta.ace_tag { color: #ff7085 }",
-    ".ace-godot.colors.4.7 .ace_entity.ace_other.ace_attribute-name { color: #bce0ff; font-style: italic }",
-    ".ace-godot.colors.4.7 .ace_punctuation.ace_tag { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_entity.ace_name.ace_tag { color: #ff7085 }",
-    /* parentesis y simbolos, todos comparten el mismo color que en Godot */
-    ".ace-godot.colors.4.7 .ace_paren { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_paren.ace_paren_open.ace_lparen { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_paren.ace_paren_open.ace_lcurly { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_paren.ace_paren_open.ace_lbracket { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_paren.ace_paren_close.ace_rparen { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_paren.ace_paren_close.ace_rcurly { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_paren.ace_paren_close.ace_rbracket { color: #abc9ff }",
-    /* puntuacion */
-    ".ace-godot.colors.4.7 .ace_punctuation { color: #abc9ff }",
-    ".ace-godot.colors.4.7 .ace_punctuation.ace_operator { color: #abc9ff }",
-    /* nombre de funcion */
-    ".ace-godot.colors.4.7 .ace_entity.ace_name.ace_function { color: #57b3ff }",
-    /* invalido */
-    ".ace-godot.colors.4.7 .ace_invalid { color: #ffffffbf; background-color: #ff786b }",
-    ".ace-godot.colors.4.7 .ace_invalid.ace_deprecated { color: #ffffffbf; background-color: #4a3a1a }",
-    /* guias de indentacion */
-    ".ace-godot.colors.4.7 .ace_indent-guide { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ09NrYAgMjP4PAAtGAwchHMyAAAAAAElFTkSuQmCC) right repeat-y }",
-    ".ace-godot.colors.4.7 .ace_indent-guide-active { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQIW2PQ1dX9zzBz5sz/ABCcBFFentLlAAAAAElFTkSuQmCC) right repeat-y }"
-  ].join("\n");
+    // ---- Capas superpuestas (selección, línea activa, tooltips) ----
+    selectionBg: "#317439", // Selection Color (sólido — equivale a #57ff6c al 40% sobre tu fondo #171717)
+    activeLine: "#ffffff12", // Current Line Color
+    //activeGutter: "#ffffff12", not uded
+    foldPlaceholderBg: "#696969",
+    tooltipBg: "#212121",
+    // ---- Texto de interfaz (claros, legibles sobre fondo oscuro) ----
+    foreground: "#a2a2a2",
+    lineNumber: "#ffffff80",
+    activeLineNumber: "#9dcbe1",
+    panelFg: "#a2a2a2",
+    tooltipFg: "#a2a2a2",
+    foldPlaceholderFg: "#a2a2a2",
+    indentGuide: "#dcd9ac",
+    invisibles: "#dfc7ec",
+    panelBorder: "#a5e8bd",
+    tooltipBorder: "#212121",
 
-  var GodotColorsPlugin = (function () {
-    function GodotColorsPlugin() {
-      this.isCodeMirror = !!(editorManager && editorManager.isCodeMirror === true);
-      this.onThemeChange = this.onThemeChange.bind(this);
-    }
+    // ---- Acentos de interfaz ----
+    caret: "#4e64d0",
+    selectionMatchBg: "#c7e75c91",
+    matchingBracket: "#c7e75c91", // Completion Selection Color
+    nonMatchingBracket: "#dd7171",
+    searchMatch: "#e1ad46",
+    searchMatchSelected: "#9762f1",
 
-    GodotColorsPlugin.prototype.init = function () {
-      var self = this;
-      var settings = acode.require("settings");
-      this.registerEditorTheme();
-      // aplicar tras una breve espera para que Ace cargue la definicion del tema
-      setTimeout(function () {
-        var currentTheme = settings.get("editorTheme");
-        if (self.isCodeMirror) {
-          editorManager.editor.setTheme(CM_THEME_ID);
-        } else {
-          editorManager.editor.setTheme(ACE_THEME_PATH);
-        }
-      }, 300);
-      settings.on("update", function (key, val) {
-        if (key === "editorTheme") self.onThemeChange(val);
-      });
-    };
+    // ---- Comentarios ----
+    comment: "#ffffff80", // Comment Color
+    blockComment: "#eb6d88",
+    docComment: "#409af1",
 
-    GodotColorsPlugin.prototype.registerEditorTheme = function () {
-      if (this.isCodeMirror) this.registerCodeMirrorTheme();
-      else this.registerAceTheme();
-    };
+    // ---- Palabras clave ----
+    keyword: "#cfe577",
+    controlKeyword: "#ff8ccc", // Control Flow Keyword Color - if, else
+    moduleKeyword: "#ff1515",
+    definitionKeyword: "#ff7085", // Keyword Color - las que se usan para "func"
+    operatorKeyword: "#ff7085", // Kryword Color - usado en "and", "or" y "not"
 
-    GodotColorsPlugin.prototype.registerAceTheme = function () {
-      if (typeof ace === "undefined" || typeof ace.define !== "function") return;
-      ace.define(
-        "ace/theme/" + ACE_THEME_NAME + ".css",
-        ["require", "exports", "module"],
-        function (req, exp, mod) { mod.exports = aceCSS; }
-      );
-      ace.define(
-        "ace/theme/" + ACE_THEME_NAME,
-        ["require", "exports", "module", "ace/theme/" + ACE_THEME_NAME + ".css", "ace/lib/dom"],
-        function (require, exports, module) {
-          exports.isDark = true;
-          exports.cssClass = "ace-" + ACE_THEME_NAME;
-          exports.cssText = require("./" + ACE_THEME_NAME + ".css");
-          require("../lib/dom").importCssString(exports.cssText, exports.cssClass, false);
-        }
-      );
-      try {
-        var tml = ace.require("ace/ext/themelist");
-        if (tml && Array.isArray(tml.themes)) {
-          if (!tml.themes.some(function (thm) { return thm.theme === ACE_THEME_PATH; }))
-            tml.themes.push({ caption: "Godot Colors (Theme)", theme: ACE_THEME_PATH, isDark: true });
-        }
-      } catch (err) {}
-    };
+    // ---- Variables / nombres ----
+    definitionVar: "#ec7fbb",
+    localVar: "#57b3ff",
+    functionName: "#57b3ff", // Function Color
+	variableName: "#bce0ff", // Member Variable Color
+	// propertyName: "#bce0ff", // Member Variable Color
+    constantName: "#bce0ff", // Member Variable Color
+    standardName: "#51d276",
+    labelName: "#3d71eb",
+    namespaceName: "#b3df75",
+    macroName: "#e34ad1",
 
-    GodotColorsPlugin.prototype.registerCodeMirrorTheme = function () {
-      var edt = acode.require("editorThemes");
-      if (!edt || typeof edt.register !== "function" || typeof edt.createTheme !== "function" ||
-          typeof edt.createHighlightStyle !== "function" || !edt.cm || !edt.cm.tags) return;
-      if (typeof edt.get === "function" && edt.get(CM_THEME_ID)) edt.unregister(CM_THEME_ID);
+    // ---- Cadenas / literales de texto ----
+    string: "#ffeda1", // String Color
+    docString: "#63c259", // Node Reference Color
+    character: "#8f71ec",
+    attributeValue: "#4df344",
+    escapeChar: "#e77ba0",
+    regexp: "#50b3eb",
+    urlLiteral: "#dbe285",
+    colorLiteral: "#c75ce5",
 
-      var createTheme = edt.createTheme;
-      var createHighlightStyle = edt.createHighlightStyle;
-      var tag = edt.cm.tags;
+    // ---- Números / literales atómicos ----
+    number: "#a1ffe0", // Number Color
+    integer: "#de7f68",
+    float: "#3c4be4",
+    bool: "#42ffc2",  //Base Type Color
+    atom: "#dc48ac",
+    unit: "#63e8ec",
+    nullLiteral: "#d4b355",
+    selfKeyword: "#a46ee6",
 
-      // estilos de resaltado segun los colores exactos de Godot 4
-      var highlight = createHighlightStyle([
-        { tag: [tag.controlKeyword], color: "#ff8ccc" },
-        { tag: [tag.keyword, tag.moduleKeyword, tag.definitionKeyword, tag.operatorKeyword, tag.self], color: "#ff7085" },
-        { tag: [tag.modifier], color: "#ff7085" },
-        { tag: [tag.operator, tag.derefOperator, tag.arithmeticOperator, tag.logicOperator, tag.bitwiseOperator, tag.compareOperator, tag.updateOperator, tag.definitionOperator, tag.typeOperator, tag.controlOperator], color: "#abc9ff" },
-        { tag: [tag.punctuation, tag.separator], color: "#abc9ff" },
-        { tag: [tag.paren, tag.brace, tag.squareBracket, tag.bracket, tag.angleBracket], color: "#abc9ff" },
-        { tag: [tag.number, tag.integer, tag.float, tag.bool, tag.null], color: "#a1ffe0" },
-        { tag: [tag.string, tag.docString, tag.character, tag.special(tag.string), tag.attributeValue, tag.url], color: "#ffeda1" },
-        { tag: [tag.escape], color: "#ffbf66" },
-        { tag: [tag.regexp], color: "#ffeda1" },
-        { tag: [tag.comment, tag.lineComment, tag.blockComment], color: "#ffffff80", fontStyle: "italic" },
-        { tag: [tag.docComment], color: "#99b3cccc", fontStyle: "italic" },
-        { tag: [tag.annotation, tag.macroName], color: "#ffb373" },
-        { tag: [tag.variableName, tag.local(tag.variableName), tag.definition(tag.variableName), tag.special(tag.variableName)], color: "#ffffffbf" },
-        { tag: [tag.function(tag.variableName)], color: "#57b3ff" },
-        { tag: [tag.definition(tag.function(tag.variableName))], color: "#66e6ff" },
-        { tag: [tag.propertyName], color: "#bce0ff" },
-        { tag: [tag.function(tag.propertyName)], color: "#57b3ff" },
-        { tag: [tag.className, tag.typeName], color: "#8fffdb" },
-        { tag: [tag.namespace], color: "#ffffffbf" },
-        { tag: [tag.constant(tag.variableName), tag.constant(tag.name), tag.standard(tag.variableName)], color: "#a1ffe0" },
-        { tag: [tag.labelName], color: "#b8c47d" },
-        { tag: [tag.tagName], color: "#ff7085" },
-        { tag: [tag.attributeName], color: "#bce0ff", fontStyle: "italic" },
-        { tag: [tag.invalid], color: "#ffffffbf", backgroundColor: "#ff786b" }
-      ]);
+    // ---- Tipos / clases / etiquetas ----
+    typeName: "#42ffc2", // Base Type Color - void, int, bool, float, etc
+    className: "#8fffdb",
+    tagName: "#4e8ee5",
+    attributeName: "#ffb373", // Annotation Color - @export
 
-      edt.register({
-        id: CM_THEME_ID, caption: "Godot Colors (Theme)", dark: true,
-        getExtension: function () {
-          return createTheme({
-            dark: true,
-            styles: {
-              "&": { color: "#ffffffbf", backgroundColor: "#171717" },
-              ".cm-content": { caretColor: "#ffffff" },
-              ".cm-cursor, .cm-dropCursor": { borderLeftColor: "#ffffff", borderLeftWidth: "2px" },
-              ".cm-selectionBackground, .cm-content ::selection": { backgroundColor: "#3de97666" },
-              ".cm-gutters": { backgroundColor: "#171717", color: "#ffffff80", border: "none", borderRight: "1px solid #313131" },
-              ".cm-activeLine": { backgroundColor: "#ffffff12" },
-              ".cm-activeLineGutter": { backgroundColor: "#ffffff12", color: "#ffffffbf" },
-              ".cm-matchingBracket": { outline: "1px solid rgba(171, 201, 255, 0.3)", color: "rgba(171, 201, 255, 0.9)" },
-              ".cm-nonmatchingBracket": { outline: "1px solid #ff786b" },
-              ".cm-tooltip": { backgroundColor: "#202020", border: "1px solid #313131", color: "#ffffffbf" },
-              ".cm-tooltip-autocomplete > ul > li[aria-selected]": { backgroundColor: "#ffffff12" },
-              ".cm-searchMatch": { backgroundColor: "#ffffff12", outline: "1px solid #699ce861" },
-              ".cm-foldPlaceholder": { backgroundColor: "#ad75c433", color: "#ffffff45", border: "1px solid #313131" }
-            },
-            highlightStyle: highlight
-          });
+    // ---- Operadores ----
+    operator: "#abc9ff", // Symbol Color
+    compareOperator: "#c7ffed",
+    arithmeticOperator: "#d79466",
+    logicOperator: "#8c80e8",
+    bitwiseOperator: "#70ed55",
+    updateOperator: "#e389b4",
+    definitionOperator: "#60c6e6",
+    typeOperator: "#ede333",
+    controlOperator: "#b86be0",
+    derefOperator: "#40e57c",
+
+    // ---- Puntuación / delimitadores ----
+    punctuation: "#abc9ff", //symbol color
+    separator: "#4c6cde",
+    bracket: "#abc9ff", // Symbol Color
+    angleBracket: "#d658be",
+    squareBracket: "#72e8dd",
+    paren: "#eead46",
+    brace: "#c7e75c91",
+
+    // ---- Markdown / marcado de texto ----
+    heading: "#a1a1a1",
+    list: "#c6e758df",
+    quote: "#5ea6e0",
+    emphasis: "#ddef7a",
+    strong: "#ca69d9",
+    link: "#84eabe",
+    monospace: "#ee8259",
+    strikethrough: "#4b4dd6",
+    contentSeparator: "#8de864",
+
+    // ---- Metadatos ----
+    meta: "#ef37a5",
+    documentMeta: "#6fd5e2",
+    annotation: "#e7c944",
+    processingInstruction: "#ae7adc",
+
+    // ---- Diffs / estado ----
+    inserted: "#50df72",
+    deleted: "#ef6c73",
+    changed: "#5c87d8",
+    invalid: "#c0e976",
+  };
+
+  
+  var editorThemesApi = null;
+  var cm6Registered = false;
+
+  function buildCM6Theme() {
+    editorThemesApi = editorThemesApi || acode.require("editorThemes");
+    var cm = editorThemesApi.cm;
+    var t = cm.tags;
+
+    var rules = [
+      // Comentarios
+      { tag: t.comment, color: palette.comment, fontStyle: "italic" },
+      { tag: t.lineComment, color: palette.comment, fontStyle: "italic" },
+      { tag: t.blockComment, color: palette.blockComment, fontStyle: "italic" },
+      { tag: t.docComment, color: palette.docComment, fontStyle: "italic" },
+
+      // Palabras clave
+      { tag: t.keyword, color: palette.keyword },
+      { tag: t.controlKeyword, color: palette.controlKeyword },
+      { tag: t.moduleKeyword, color: palette.moduleKeyword },
+      { tag: t.definitionKeyword, color: palette.definitionKeyword },
+      { tag: t.operatorKeyword, color: palette.operatorKeyword },
+
+      // Variables / nombres
+      { tag: t.variableName, color: palette.variableName },
+      { tag: t.definition(t.variableName), color: palette.definitionVar },
+      { tag: t.local(t.variableName), color: palette.localVar },
+      { tag: t.function(t.variableName), color: palette.functionName },
+      { tag: t.function(t.propertyName), color: palette.functionName },
+      { tag: t.constant(t.variableName), color: palette.constantName },
+      { tag: t.standard(t.variableName), color: palette.standardName },
+      { tag: t.propertyName, color: palette.variableName },
+      { tag: t.labelName, color: palette.labelName },
+      { tag: t.namespace, color: palette.namespaceName },
+      { tag: t.macroName, color: palette.macroName },
+
+      // Cadenas / literales de texto
+      { tag: t.string, color: palette.string },
+      { tag: t.special(t.string), color: palette.docString },
+      { tag: t.character, color: palette.character },
+      { tag: t.attributeValue, color: palette.attributeValue },
+      { tag: t.escape, color: palette.escapeChar },
+      { tag: t.regexp, color: palette.regexp },
+      { tag: t.url, color: palette.urlLiteral },
+      { tag: t.color, color: palette.colorLiteral },
+
+      // Números / literales atómicos
+      { tag: t.number, color: palette.number },
+      { tag: t.integer, color: palette.integer },
+      { tag: t.float, color: palette.float },
+      { tag: t.bool, color: palette.bool },
+      { tag: t.atom, color: palette.atom },
+      { tag: t.unit, color: palette.unit },
+      { tag: t.null, color: palette.nullLiteral },
+      { tag: t.self, color: palette.selfKeyword },
+
+      // Tipos / clases / etiquetas
+      { tag: t.typeName, color: palette.typeName },
+      { tag: t.className, color: palette.className },
+      { tag: t.tagName, color: palette.tagName },
+      { tag: t.attributeName, color: palette.attributeName },
+
+      // Operadores
+      { tag: t.operator, color: palette.operator },
+      { tag: t.compareOperator, color: palette.compareOperator },
+      { tag: t.arithmeticOperator, color: palette.arithmeticOperator },
+      { tag: t.logicOperator, color: palette.logicOperator },
+      { tag: t.bitwiseOperator, color: palette.bitwiseOperator },
+      { tag: t.updateOperator, color: palette.updateOperator },
+      { tag: t.definitionOperator, color: palette.definitionOperator },
+      { tag: t.typeOperator, color: palette.typeOperator },
+      { tag: t.controlOperator, color: palette.controlOperator },
+      { tag: t.derefOperator, color: palette.derefOperator },
+
+      // Puntuación / delimitadores
+      { tag: t.punctuation, color: palette.punctuation },
+      { tag: t.separator, color: palette.separator },
+      { tag: t.bracket, color: palette.bracket },
+      { tag: t.angleBracket, color: palette.angleBracket },
+      { tag: t.squareBracket, color: palette.squareBracket },
+      { tag: t.paren, color: palette.paren },
+      { tag: t.brace, color: palette.brace },
+
+      // Markdown / marcado de texto
+      { tag: t.heading, color: palette.heading, fontWeight: "bold" },
+      { tag: t.heading1, color: palette.heading, fontWeight: "bold" },
+      { tag: t.heading2, color: palette.heading, fontWeight: "bold" },
+      { tag: t.heading3, color: palette.heading, fontWeight: "bold" },
+      { tag: t.list, color: palette.list },
+      { tag: t.quote, color: palette.quote },
+      { tag: t.emphasis, color: palette.emphasis, fontStyle: "italic" },
+      { tag: t.strong, color: palette.strong, fontWeight: "bold" },
+      { tag: t.link, color: palette.link, textDecoration: "underline" },
+      { tag: t.monospace, color: palette.monospace },
+      { tag: t.strikethrough, color: palette.strikethrough, textDecoration: "line-through" },
+      { tag: t.contentSeparator, color: palette.contentSeparator },
+
+      // Metadatos
+      { tag: t.meta, color: palette.meta },
+      { tag: t.documentMeta, color: palette.documentMeta },
+      { tag: t.annotation, color: palette.annotation },
+      { tag: t.processingInstruction, color: palette.processingInstruction },
+
+      // Diffs / estado
+      { tag: t.inserted, color: palette.inserted },
+      { tag: t.deleted, color: palette.deleted },
+      { tag: t.changed, color: palette.changed },
+      { tag: t.invalid, color: palette.invalid, textDecoration: "underline wavy" },
+    ];
+
+    var highlightStyle = editorThemesApi.createHighlightStyle(rules);
+
+    return editorThemesApi.createTheme({
+      dark: IS_DARK,
+      highlightStyle: highlightStyle,
+      styles: {
+        "&": {
+          backgroundColor: palette.background,
+          color: palette.foreground,
         },
-        config: {
-          name: CM_THEME_ID, dark: true,
-          background: "#171717", foreground: "#ffffffbf",
-          keyword: "#ff7085", string: "#ffeda1", number: "#a1ffe0",
-          comment: "#ffffff80", function: "#57b3ff", variable: "#ffffffbf",
-          type: "#8fffdb", class: "#c7ffed", constant: "#a1ffe0",
-          operator: "#abc9ff", invalid: "#ff786b"
-        }
-      });
-    };
-
-    GodotColorsPlugin.prototype.isGodotCTheme = function (val) {
-      var nrm = String(val || "").trim().toLowerCase();
-      return nrm === ACE_THEME_NAME || nrm === ACE_THEME_PATH || nrm === CM_THEME_ID ||
-        nrm === "acode.plugin.repechul.godot.colors.editor.theme" || nrm === "godot_colors_editor_theme" || nrm === "godot colors editor theme";
-    };
-
-    GodotColorsPlugin.prototype.applyEditorTheme = function (val) {
-      var editor = editorManager && editorManager.editor;
-      if (!editor || !this.isGodotCTheme(val)) return;
-      var settings = acode.require("settings");
-      if (this.isCodeMirror) {
-        editor.setTheme(CM_THEME_ID);
-        if (val !== CM_THEME_ID) settings.update({ editorTheme: CM_THEME_ID }, false);
-      } else {
-        editor.setTheme(ACE_THEME_PATH);
-        if (val !== ACE_THEME_NAME) settings.update({ editorTheme: ACE_THEME_NAME }, false);
-      }
-    };
-
-    GodotColorsPlugin.prototype.onThemeChange = function (val) { this.applyEditorTheme(val); };
-
-    GodotColorsPlugin.prototype.destroy = function () {
-      if (this.isCodeMirror) {
-        var edt = acode.require("editorThemes");
-        if (edt && typeof edt.unregister === "function") edt.unregister(CM_THEME_ID);
-      }
-    };
-
-    return GodotColorsPlugin;
-  })();
-
-  if (window.acode) {
-    var plugin = new GodotColorsPlugin();
-    acode.setPluginInit(pluginId, function (baseUrl, $page, extras) {
-      if (!baseUrl.endsWith("/")) baseUrl += "/";
-      plugin.baseUrl = baseUrl;
-      plugin.init();
+        ".cm-content": {
+          caretColor: palette.caret,
+        },
+        ".cm-cursor, .cm-dropCursor": {
+          borderLeftColor: palette.caret,
+        },
+        // Nota sobre "selectionBg": tiene que ser un color SÓLIDO (sin
+        // canal alfa). CM6 dibuja la selección como varios rectángulos
+        // superpuestos a propósito unas fracciones de píxel (para no dejar
+        // costuras entre líneas); con un color translúcido cada rectángulo
+        // se compone por separado y donde se superponen el alfa se suma y
+        // se ve más oscuro mientras arrastras la selección. Por eso
+        // "selectionBg" arriba en la paleta ya está como color plano.
+        "&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection":
+          {
+            backgroundColor: palette.selectionBg,
+          },
+        ".cm-selectionMatch": {
+          backgroundColor: palette.selectionMatchBg,
+        },
+        ".cm-gutters": {
+          backgroundColor: palette.gutterBg,
+          color: palette.lineNumber,
+          border: "none",
+        },
+        ".cm-lineNumbers .cm-gutterElement": {
+          color: palette.lineNumber,
+        },
+        ".cm-activeLineGutter": {
+          backgroundColor: palette.activeLine,
+          color: palette.activeLineNumber,
+        },
+        ".cm-activeLine": {
+          backgroundColor: palette.activeLine,
+        },
+        ".cm-matchingBracket, .cm-nonmatchingBracket": {
+          backgroundColor: palette.matchingBracket,
+          outline: "none",
+          color: "inherit",
+        },
+        ".cm-searchMatch": {
+          backgroundColor: palette.searchMatch,
+        },
+        ".cm-searchMatch.cm-searchMatch-selected": {
+          backgroundColor: palette.searchMatchSelected,
+        },
+        ".cm-foldPlaceholder": {
+          backgroundColor: palette.foldPlaceholderBg,
+          color: palette.foldPlaceholderFg,
+          border: "none",
+        },
+        ".cm-panels": {
+          backgroundColor: palette.panelBg,
+          color: palette.panelFg,
+        },
+        ".cm-panels.cm-panels-top": {
+          borderBottom: "1px solid " + palette.panelBorder,
+        },
+        ".cm-panels.cm-panels-bottom": {
+          borderTop: "1px solid " + palette.panelBorder,
+        },
+        ".cm-tooltip": {
+          backgroundColor: palette.tooltipBg,
+          color: palette.tooltipFg,
+          border: "1px solid " + palette.tooltipBorder,
+        },
+        ".cm-tooltip.cm-tooltip-autocomplete > ul > li[aria-selected]": {
+          backgroundColor: palette.matchingBracket,
+          color: palette.background,
+        },
+      },
     });
-    acode.setPluginUnmount(pluginId, function () { plugin.destroy(); });
   }
 
-}();
+  function registerCM6Theme() {
+    if (cm6Registered) return;
+    editorThemesApi = acode.require("editorThemes");
+    editorThemesApi.register({
+      id: THEME_ID,
+      caption: THEME_CAPTION,
+      dark: IS_DARK,
+      getExtension: buildCM6Theme,
+      config: {
+        name: THEME_ID,
+        dark: IS_DARK,
+        background: palette.background,
+        foreground: palette.foreground,
+        keyword: palette.keyword,
+        string: palette.string,
+        number: palette.number,
+        comment: palette.comment,
+        function: palette.functionName,
+        variable: palette.variableName,
+        type: palette.typeName,
+        class: palette.className,
+        constant: palette.constantName,
+        operator: palette.operator,
+        invalid: palette.invalid,
+      },
+    });
+    cm6Registered = true;
+  }
+
+  var ACE_THEME_MODULE = "ace/theme/" + THEME_ID;
+  var ACE_CSS_CLASS = "ace-" + THEME_ID;
+
+  function buildAceCss() {
+    var c = ACE_CSS_CLASS;
+    return [
+      "." + c + " { background-color: " + palette.background + "; color: " + palette.foreground + "; }",
+      "." + c + " .ace_gutter { background: " + palette.gutterBg + "; color: " + palette.lineNumber + "; }",
+      "." + c + " .ace_print-margin { background: " + palette.printMargin + "; }",
+      "." + c + " .ace_cursor { color: " + palette.caret + "; border-left: 2px solid " + palette.caret + "; }",
+      "." + c + " .ace_marker-layer .ace_selection { background: " + palette.selectionBg + "; }",
+      "." + c + ".ace_multiselect .ace_selection.ace_start { box-shadow: 0 0 3px 0 " + palette.background + "; }",
+      "." + c + " .ace_marker-layer .ace_step { background: " + palette.searchMatch + "; }",
+      "." + c + " .ace_marker-layer .ace_stack { background: " + palette.searchMatchSelected + "; }",
+      "." + c + " .ace_marker-layer .ace_bracket { margin: -1px 0 0 -1px; border: 1px solid " + palette.matchingBracket + "; }",
+      "." + c + " .ace_marker-layer .ace_active-line { background: " + palette.activeLine + "; }",
+      "." + c + " .ace_gutter-active-line { background-color: " + palette.activeLine + "; color: " + palette.activeLineNumber + "; }",
+      "." + c + " .ace_marker-layer .ace_selected-word { border: 1px solid " + palette.selectionMatchBg + "; }",
+      "." + c + " .ace_fold { background-color: " + palette.foldPlaceholderFg + "; border-color: " + palette.foreground + "; }",
+      "." + c + " .ace_indent-guide { background-image: none; border-right: 1px dotted " + palette.indentGuide + "; }",
+      "." + c + " .ace_invisible { color: " + palette.invisibles + "; }",
+
+      "." + c + " .ace_keyword { color: " + palette.keyword + "; }",
+      "." + c + " .ace_keyword.ace_control { color: " + palette.controlKeyword + "; }",
+      "." + c + " .ace_keyword.ace_operator { color: " + palette.operatorKeyword + "; }",
+      "." + c + " .ace_storage { color: " + palette.definitionKeyword + "; }",
+      "." + c + " .ace_storage.ace_type { color: " + palette.typeName + "; }",
+
+      "." + c + " .ace_constant { color: " + palette.constantName + "; }",
+      "." + c + " .ace_constant.ace_numeric { color: " + palette.number + "; }",
+      "." + c + " .ace_constant.ace_character { color: " + palette.character + "; }",
+      "." + c + " .ace_constant.ace_character.ace_escape { color: " + palette.escapeChar + "; }",
+      "." + c + " .ace_constant.ace_language { color: " + palette.nullLiteral + "; }",
+      "." + c + " .ace_constant.ace_library { color: " + palette.urlLiteral + "; }",
+      "." + c + " .ace_constant.ace_other { color: " + palette.atom + "; }",
+
+      "." + c + " .ace_support { color: " + palette.standardName + "; }",
+      "." + c + " .ace_support.ace_function { color: " + palette.functionName + "; }",
+      "." + c + " .ace_support.ace_constant { color: " + palette.constantName + "; }",
+      "." + c + " .ace_support.ace_class { color: " + palette.className + "; }",
+      "." + c + " .ace_support.ace_type { color: " + palette.typeName + "; }",
+
+      "." + c + " .ace_invalid { color: " + palette.background + "; background-color: " + palette.invalid + "; }",
+      "." + c + " .ace_invalid.ace_illegal { color: " + palette.background + "; background-color: " + palette.invalid + "; }",
+      "." + c + " .ace_invalid.ace_deprecated { color: " + palette.background + "; background-color: " + palette.changed + "; }",
+
+      "." + c + " .ace_string { color: " + palette.string + "; }",
+      "." + c + " .ace_string.ace_regexp { color: " + palette.regexp + "; }",
+
+      "." + c + " .ace_comment { color: " + palette.comment + "; font-style: italic; }",
+      "." + c + " .ace_comment.ace_doc { color: " + palette.docComment + "; }",
+      "." + c + " .ace_comment.ace_doc.ace_tag { color: " + palette.tagName + "; }",
+
+      "." + c + " .ace_variable { color: " + palette.variableName + "; }",
+      "." + c + " .ace_variable.ace_parameter { color: " + palette.localVar + "; }",
+      "." + c + " .ace_variable.ace_language { color: " + palette.selfKeyword + "; }",
+      "." + c + " .ace_variable.ace_instance { color: " + palette.variableName + "; }",
+      "." + c + " .ace_variable.ace_class { color: " + palette.className + "; }",
+
+      "." + c + " .ace_meta.ace_tag { color: " + palette.tagName + "; }",
+      "." + c + " .ace_entity.ace_other.ace_attribute-name { color: " + palette.attributeName + "; }",
+      "." + c + " .ace_entity.ace_name.ace_function { color: " + palette.functionName + "; }",
+      "." + c + " .ace_entity.ace_name.ace_tag { color: " + palette.tagName + "; }",
+
+      "." + c + " .ace_markup.ace_heading { color: " + palette.heading + "; }",
+      "." + c + " .ace_markup.ace_list { color: " + palette.list + "; }",
+      "." + c + " .ace_markup.ace_bold { font-weight: bold; color: " + palette.strong + "; }",
+      "." + c + " .ace_markup.ace_italic { font-style: italic; color: " + palette.emphasis + "; }",
+      "." + c + " .ace_markup.ace_underline { text-decoration: underline; }",
+      "." + c + " .ace_markup.ace_strike { text-decoration: line-through; color: " + palette.strikethrough + "; }",
+      "." + c + " .ace_markup.ace_quote { color: " + palette.quote + "; }",
+
+      "." + c + " .ace_paren { color: " + palette.paren + "; }",
+      "." + c + " .ace_punctuation { color: " + palette.punctuation + "; }",
+      "." + c + " .ace_punctuation.ace_operator { color: " + palette.operator + "; }",
+
+      "." + c + " .ace_function-arguments { color: " + palette.macroName + "; }",
+      "." + c + " .ace_xml-pe { color: " + palette.processingInstruction + "; }",
+    ].join("\n");
+  }
+
+  var aceRegistered = false;
+
+  function registerAceTheme() {
+    if (aceRegistered) return;
+    if (typeof ace === "undefined" || typeof ace.define !== "function") return;
+
+    ace.define(ACE_THEME_MODULE, ["require", "exports", "module"], function (aceRequire, aceExports) {
+      aceExports.isDark = IS_DARK;
+      aceExports.cssClass = ACE_CSS_CLASS;
+      aceExports.cssText = buildAceCss();
+      try {
+        var dom = aceRequire("../lib/dom");
+        dom.importCssString(aceExports.cssText, aceExports.cssClass, false);
+      } catch (e) {
+        var styleTag = document.createElement("style");
+        styleTag.id = "theme-" + THEME_ID;
+        styleTag.textContent = aceExports.cssText;
+        document.head.appendChild(styleTag);
+      }
+    });
+    aceRegistered = true;
+  }
+
+  function applyAceTheme() {
+    try {
+      var settings = acode.require("settings");
+      if (settings && typeof settings.update === "function") {
+        settings.update({ editorTheme: ACE_THEME_MODULE });
+      }
+    } catch (e) {
+      /* settings API no disponible, se ignora */
+    }
+    if (
+      typeof editorManager !== "undefined" &&
+      editorManager.editor &&
+      typeof editorManager.editor.setTheme === "function"
+    ) {
+      editorManager.editor.setTheme(ACE_THEME_MODULE);
+    }
+  }
+
+  /* ================================================================
+   * 4) INIT / UNMOUNT — detecta el motor activo y registra lo que toque
+   * ================================================================ */
+  acode.setPluginInit(PLUGIN_ID, function () {
+    var isCM6 = typeof editorManager !== "undefined" && !!editorManager.isCodeMirror;
+
+    if (isCM6) {
+      // Acode >= 1.12.3 (incluye v1.12.9): motor CodeMirror 6
+      registerCM6Theme();
+    } else {
+      // Acode con motor Ace heredado
+      registerAceTheme();
+      try {
+        var commands = acode.require("commands");
+        commands.addCommand({
+          name: THEME_ID + "-apply-ace",
+          description: "Aplicar " + THEME_CAPTION + " (Ace)",
+          exec: applyAceTheme,
+        });
+      } catch (e) {
+        /* API de comandos no disponible en esta versión, se ignora */
+      }
+    }
+  });
+
+  acode.setPluginUnmount(PLUGIN_ID, function () {
+    try {
+      if (editorThemesApi && cm6Registered) {
+        editorThemesApi.unregister(THEME_ID);
+      }
+    } catch (e) {
+      /* se ignora */
+    }
+  });
+})();

@@ -1,8 +1,8 @@
-Godot Colors - Pure Black Editor Theme
+Godot Colors - Midnight Editor Theme
 
 <br><p align="center">
   <a href="https://github.com/PoQue00/Black-Editor-With-White-Comments">
-    <img src="https://raw.githubusercontent.com/PoQue00/Black-Editor-With-White-Comments/icon.png" width="256" height="256" alt="Godot Colors - Midnight">
+    <img src="https://raw.githubusercontent.com/PoQue00/Black-Editor-With-White-Comments/master/icon.png" width="256" height="256" alt="Godot Colors - Midnight">
   </a>
 </p><br>---
 

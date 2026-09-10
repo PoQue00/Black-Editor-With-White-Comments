@@ -18,13 +18,15 @@
     "godot",
     "gdscript",
     "dark",
-    "godot-4.7"
+    "godot-4.7",
+    "pure black",
+    "white comments"
   ],
   "price": 0,
   "permissions": [],
   "author": {
-    "name": "Repechul",
-    "github": "repechul"
+    "name": "PoQue",
+    "github": "PoQue00"
   },
-  "repository": "https://github.com/Repechul/acode-plugin-godot-colors-editor-theme"
+  "https://github.com/PoQue00/Black-Editor-With-White-Comments"
 }

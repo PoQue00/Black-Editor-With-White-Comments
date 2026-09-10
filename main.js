@@ -9,8 +9,8 @@
     
   var palette = {
     // ---- Fondos / estructura ----
-    background: "#171717", // Background Color
-    gutterBg: "#171717", // Compartido con "Background Color" en godot
+    background: "#000000", // Background Color
+    gutterBg: "#000000", // Compartido con "Background Color" en godot
     panelBg: "#8b8b8b",
     printMargin: "#8b8b8b",
     scrollbarThumb: "#8b8b8b",
@@ -42,7 +42,7 @@
     searchMatchSelected: "#9762f1",
 
     // ---- Comentarios ----
-    comment: "#ffffff80", // Comment Color
+    comment: "#FFFFFF", // Comment Color
     blockComment: "#eb6d88",
     docComment: "#409af1",
 

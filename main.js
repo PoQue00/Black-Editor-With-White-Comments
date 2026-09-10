@@ -2,8 +2,8 @@
   "use strict";
 
   var PLUGIN_ID = "acode.plugin.poque.godot.colors.editor.theme.midnight";
-  var THEME_ID = "godot.colors.4.7";
-  var THEME_CAPTION = "Godot Colors";
+  var THEME_ID = "godot.colors.4.7.pure.black";
+  var THEME_CAPTION = "Godot Colors - Pure Black";
   var IS_DARK = true;
 
     

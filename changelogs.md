@@ -1,6 +1,9 @@
 # Changelog
 
-## v2.0
+## 2.0.1
 
-- Refactoring and restructuring of the theme.
-- Greater compatibility and fidelity with Godot Engine Script Editor colors.
+- Changed the editor background to pure black.
+- Changed comments to pure white.
+- Preserved the original Godot Colors syntax palette.
+- Added a unique editor theme ID.
+- Updated plugin metadata for the PoQue repository.

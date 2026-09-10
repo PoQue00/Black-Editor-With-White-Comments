@@ -8,6 +8,7 @@
   "icon": "icon.png",
   "files": [],
   "minVersionCode": 290,
+  "price": 0,
   "license": "MIT",
   "keywords": [
     "theme",
@@ -22,8 +23,8 @@
     "pure black",
     "white comments"
   ],
-  "price": 0,
-  "repository": "https://github.com/PoQue00/Black-Editor-With-White-Comments.git",
+  "changelogs": "changelogs.md",
+  "repository": "https://github.com/PoQue00/Black-Editor-With-White-Comments",
   "author": {
     "name": "PoQue",
     "github": "PoQue00"

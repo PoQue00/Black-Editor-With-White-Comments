@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var PLUGIN_ID = "acode.plugin.repechul.godot.colors.editor.theme";
+  var PLUGIN_ID = "acode.plugin.poque.godot.colors.editor.theme.midnight";
   var THEME_ID = "godot.colors.4.7";
   var THEME_CAPTION = "Godot Colors";
   var IS_DARK = true;

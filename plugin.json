@@ -1,9 +1,9 @@
 {
   "$schema": "https://acode.app/schema/plugin/v0.1.0.json",
-  "id": "acode.plugin.repechul.godot.colors.editor.theme",
-  "name": "Godot Colors - Pure Black",
+  "id": "acode.plugin.poque.godot.colors.editor.theme.midnight",
+  "name": "Godot Colors - Midnight",
   "main": "main.js",
-  "version": "2.0",
+  "version": "2.0.1",
   "readme": "readme.md",
   "icon": "icon.png",
   "files": [],
@@ -23,8 +23,7 @@
     "white comments"
   ],
   "price": 0,
-  "permissions": [],
-  "repository": "https://github.com/PoQue00/Black-Editor-With-White-Comments",
+  "repository": "https://github.com/PoQue00/Black-Editor-With-White-Comments.git",
   "author": {
     "name": "PoQue",
     "github": "PoQue00"
